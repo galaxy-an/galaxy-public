@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>猜你喜欢</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-------------jquery库-------------->
+  	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<!-------------Amazeui--------------->
+    <script type="text/javascript" src="js/amazeui.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/amazeui.css">
+    <!------------核心样式-------------->
+    <link rel="stylesheet" type="text/css" href="css/user.css">
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+           // var a= location.search
+           //  alert("哈哈哈"+a)
+            var car=$.cookie()
+            var id;
+            var num;
+            if(car!=null){
+                // alert(car+"好借好还")
+                 id=car.split("@")[0]
+                 num=car.split("@")[1]
+            }else {
+                id=0
+            }
+            $.ajax({
+                url:"car",
+                type:"get",
+                dataType:"json",
+                success:function (data) {
+                    $(data).each(function (index,c) {
+                        $("#listCar").append("<li>" +
+                            "<div class=\"pic\"><img src=\"/"+c.img+"\"/></div>" +
+                            "<div class=\"con\">" +
+                            "<a href=\"detail.html?id="+c.id+"\"><h3>"+c.carName+"</h3></a>" +
+                            "<div class=\"user\">" +
+                            "<span>产地：<font>"+c.productionPlace+"</font></span>" +
+                            "<label>"+c.minPrice+"</label>" +
+                            "<label>~ "+c.maxPrice+"万元</label>" +
+                            "</div>" +
+                            "<p>"+c.introduce+"</p>" +
+                            "</div>" +
+                            "</li>")
+                        var cid=c.id
+                        if(id==cid){
+                            $("#number").html(" <li>\n" +
+                                " <div class=\"note\">\n" +
+                                "                            <div class=\"pic\"><img src=\"/"+c.img+"\"/></div>\n" +
+                                "                            <div class=\"con\">\n" +
+                                "                                <a href=\"#\"><h3>"+c.carName+"</h3></a>\n" +
+                                "                                <p>产地：<span>"+c.productionPlace+"</span><label>"+num+"次浏览</label></p>\n" +
+                                "                            </div>\n" +
+                                "                        </div>\n" +
+                                "                        <div class=\"text\">\n" +
+                                "                            <p>"+c.introduce+"</p>\n" +
+                                "                        </div>\n" +
+                                "                    </li>")
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+	
+</head>
+<body>
+
+
+<!-----------------框架---------------->
+<div class="cw1000">
+	<div class="w280 fl">
+		<div class="public_box">
+			<div class="public_title">
+				<h2>近期浏览</h2>
+			</div>
+			<!----------------- 推荐列表 ---------------->
+			<div class="comments_list">
+				<ul id="number">
+<!--                    <li>-->
+<!--                        <div class="note">-->
+<!--                            <div class="pic"><img src="img/104.jpg"/></div>-->
+<!--                            <div class="con">-->
+<!--                                <a href="#"><h3>幻影</h3></a>-->
+<!--                                <p>产地：<span>意大利</span><label>5次浏览</label></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="text">-->
+<!--                            <p>劳斯莱斯幻影是劳斯莱斯被宝马收购后推出的第一个产品，通过铝的使用，庞大的车身还不到2.5吨重，再加上6.7升V12发动机与六速自动变速箱的的通力合作，幻影0-100Km/h的加速不到6秒，出于对安全的考虑最高时速被限制在240Km/h。</p>-->
+<!--                        </div>-->
+<!--                    </li>-->
+				</ul>
+				<div class="h_more"><a href="#">共<b>N</b>个推荐</a></div>
+			</div>
+		</div>	
+		
+		
+	</div>
+	<div class="w700 fr">
+		<div class="public_box">
+			<div class="public_title">
+				<h2>酷车榜</h2>
+			</div>	
+			<!-----------------汽车列表---------------->
+			<div class="note_list">
+				<ul id="listCar">
+<!--					<li>-->
+<!--						<div class="pic"><img src="img/106.jpg"/></div>-->
+<!--						<div class="con">-->
+<!--							<a href="detail.html"><h3>幻影 </h3></a>-->
+<!--							<div class="user">-->
+<!--								<span>产地：<font>意大利</font></span>-->
+<!--								<label>668.8</label>-->
+<!--								<label>~ 800.8 万元</label>-->
+<!--							</div>-->
+<!--							<p>劳斯莱斯幻影是劳斯莱斯被宝马收购后推出的第一个产品，通过铝的使用，庞大的车身还不到2.5吨重，再加上6.7升V12发动机与六速自动变速箱的的通力合作，幻影0-100Km/h的加速不到6秒，出于对安全的考虑最高时速被限制在240Km/h。</p>-->
+<!--						</div>-->
+<!--					</li>-->
+				</ul>
+				<!--<div class="h_more"><a href="#">共<b>10</b>辆酷车</a></div>-->
+			</div>
+		</div>	
+	</div>
+	<div class="clear"></div>
+</div>
+<!-----------------版底---------------->
+<div id="footer">
+	<p>版权所有 2006 - 2019 江苏传智播客教育科技股份有限公司</p>
+	<p>学校地址：江苏省宿迁市沭阳县常州路57号 邮编：223600苏ICP备16008888号-6</p>
+</div>
+</body>
+</html>
